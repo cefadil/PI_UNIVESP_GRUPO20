@@ -49,6 +49,10 @@ class Setores:
         cursor.execute("DELETE FROM setores where id = %s", (id,))
         db.commit()
         db.disconnect()
+        if cursor.rowcount == 0:
+            return {"Erro": "Setor não encontrado"}
+        
+    
         return {"Mensagem": "Setor deletado com sucesso"}
     
     def update(id, nome, local):    
