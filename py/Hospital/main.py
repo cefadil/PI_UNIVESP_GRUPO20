@@ -84,3 +84,16 @@ async def inserir_movimentacao(funcionario: int, setor: int, equipamento: int, o
 @app.get("/movimentacoes/equipamento/{id}")
 async def obter_movimentacao_por_equipamento(id: int):
     return Movimentacoes.getByEquipamento(id)
+
+@app.get("/usuarios")
+async def listar_usuarios():
+    lista_usuarios = Usuarios.getAll()
+    return lista_usuarios
+
+@app.get("/usuarios/{id}")
+async def obter_usuario(id: int):
+    return Usuarios.getById(id)
+
+@app.post("/usuarios")
+async def inserir_usuario(nome: str, login: str, setor: int, tipo_usuario: str):
+    return Usuarios.insert(nome, login, setor, tipo_usuario)
