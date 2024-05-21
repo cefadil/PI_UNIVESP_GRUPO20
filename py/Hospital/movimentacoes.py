@@ -60,7 +60,7 @@ class Movimentacoes:
         cursor.execute("UPDATE equipamentos SET local = %s WHERE id = %s", (movimentacao.setor, movimentacao.equipamento))
         db.commit()
         db.disconnect()
-        return {"Mensagem": "Movimentação inserido com sucesso"}
+        return {"Mensagem": "Movimentação inserido com sucesso!"}
     
     def getByEquipamento(id):
         db = DB().connect()

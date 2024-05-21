@@ -75,4 +75,4 @@ class Equipamentos:
                         (fabricante, modelo, descricao, numero_serie, tag, local, id))
         db.commit()
         db.disconnect()
-        return {"Mensagem": "Equipamento atualizado com sucesso"}
+        return {"Mensagem": "Equipamento atualizado com sucesso!"}
