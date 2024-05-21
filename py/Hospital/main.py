@@ -67,3 +67,20 @@ async def deletar_equipamento(id: int):
 @app.put("/equipamentos/{id}")
 async def atualizar_equipamento(id: int, fabricante: str, modelo: str, descricao: str, numero_serie: str, tag: str, local: int):
     return Equipamentos.update(id, fabricante, modelo, descricao, numero_serie, tag, local)
+
+@app.get("/movimentacoes")
+async def listar_movimentacoes():
+    lista_movimentacoes = Movimentacoes.getAll()
+    return lista_movimentacoes
+
+@app.get("/movimentacoes/{id}")
+async def obter_movimentacao(id: int):
+    return Movimentacoes.getById(id)
+
+@app.post("/movimentacoes")
+async def inserir_movimentacao(funcionario: int, setor: int, equipamento: int, observacao: str):
+    return Movimentacoes.insert(funcionario, setor, equipamento, observacao)
+
+@app.get("/movimentacoes/equipamento/{id}")
+async def obter_movimentacao_por_equipamento(id: int):
+    return Movimentacoes.getByEquipamento(id)

@@ -38,12 +38,13 @@ class Equipamentos:
         db.disconnect()
         try:
             equipamento = Equipamentos()
-            equipamento.descricao = result[0]
-            equipamento.fabricante = result[1]
-            equipamento.modelo = result[2]
-            equipamento.numero_serie = result[3]
-            equipamento.tag = result[4]
-            equipamento.local = result[5]
+            equipamento.id = result[0]
+            equipamento.descricao = result[1]
+            equipamento.fabricante = result[2]
+            equipamento.modelo = result[3]
+            equipamento.numero_serie = result[4]
+            equipamento.tag = result[5]
+            equipamento.local = result[6]
 
             return equipamento
         except:
