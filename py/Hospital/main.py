@@ -6,6 +6,9 @@ from setores import Setores
 from usuarios import Usuarios
 import json
 import uvicorn
+import datetime
+import random
+import sys
 
 app = FastAPI()
 #FastAPI: Framework para criação de APIs
@@ -19,7 +22,7 @@ try:
     print(f"Iniciando Conexão...\nStatus: {db.conn.is_connected()}")
 except ConnectionError as err:
     raise f"Falha na conexão. Erro: {err}"
-
+tokens = []
 
 #definição das rotas
 @app.get("/")
@@ -97,3 +100,14 @@ async def obter_usuario(id: int):
 @app.post("/usuarios")
 async def inserir_usuario(nome: str, login: str, setor: int, tipo_usuario: str):
     return Usuarios.insert(nome, login, setor, tipo_usuario)
+
+@app.post("/usuarios/login")
+async def login(login, senha):
+    token = Usuarios.login(login, senha)
+    if token[0]==0:
+        return {"Erro": "Usuário ou senha incorretos. Tente novamente!"}
+    for x in tokens:
+        if x[0] == token[0]:
+            tokens.remove(x)
+    tokens.append(token)
+    return token[1]

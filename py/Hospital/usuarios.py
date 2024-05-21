@@ -1,3 +1,5 @@
+import random
+import datetime
 from db import DB 
 class Usuarios:
     
@@ -56,3 +58,20 @@ class Usuarios:
         db.disconnect()
         return {"Mensagem": "Usuário inserido com sucesso"}
     
+    def login(login, senha):
+        token = []
+        db = DB().connect()
+        cursor = db.cursor()
+        cursor.execute("SELECT * from usuarios where login = %s and senha = %s", (login, senha))
+        result = cursor.fetchone()
+        db.disconnect()
+        try:
+            token.append(result[0])
+            token.append(random.randint(1, 50000000000))
+            token.append(datetime.datetime.now())
+            return token
+        except:
+            token.append(0)
+            token.append(0)
+            token.append(0)
+            return token

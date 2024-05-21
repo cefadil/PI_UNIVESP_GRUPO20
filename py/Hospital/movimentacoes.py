@@ -76,5 +76,6 @@ class Movimentacoes:
             movimentacao.setor = x[2]
             movimentacao.observacao = x[3]
             movimentacao.equipamento = x[4]
+            movimentacao.data = x[5]
             lista_movimentacoes.append(movimentacao)
         return lista_movimentacoes
