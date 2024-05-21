@@ -5,9 +5,13 @@ from movimentacoes import Movimentacoes
 from setores import Setores
 from usuarios import Usuarios
 import json
+import uvicorn
 
-#FastAPI: Framework para criação de APIs
 app = FastAPI()
+#FastAPI: Framework para criação de APIs
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="localhost", port=8000, reload=True)
 
 #Conexão com o banco de dados
 try:  
@@ -18,7 +22,6 @@ except ConnectionError as err:
 
 
 #definição das rotas
-
 @app.get("/")
 async def root():
     return {"message": "Bem vindo ao Sistema de Gerenciamento de movimentações de equipamentos"}
@@ -43,3 +46,24 @@ async def deletar_setor(id: int):
 @app.put("/setores/{id}")  
 async def atualizar_setor(id: int, nome: str, local: str):
     return Setores.update(id, nome, local)  
+
+@app.get("/equipamentos")
+async def listar_equipamentos():
+    lista_equipamentos = Equipamentos.getAll()
+    return lista_equipamentos
+
+@app.get("/equipamentos/{id}")
+async def obter_equipamento(id: int):
+    return Equipamentos.getById(id)
+
+@app.post("/equipamentos")
+async def inserir_equipamento(fabricante: str, modelo: str, descricao: str, numero_serie: str, tag: str, local: int):
+    return Equipamentos.insert(fabricante, modelo, descricao, numero_serie, tag, local)
+
+@app.delete("/equipamentos/{id}")
+async def deletar_equipamento(id: int):
+    return Equipamentos.delete(id)
+
+@app.put("/equipamentos/{id}")
+async def atualizar_equipamento(id: int, fabricante: str, modelo: str, descricao: str, numero_serie: str, tag: str, local: int):
+    return Equipamentos.update(id, fabricante, modelo, descricao, numero_serie, tag, local)
