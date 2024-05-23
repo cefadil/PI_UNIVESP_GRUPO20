@@ -1,3 +1,4 @@
+from fastapi import Depends
 from db import DB
 class Setores:
     def __init__(self):
